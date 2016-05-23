@@ -22,8 +22,10 @@ module YepBot
 
       logger.debug message.text_content
       message.reply do
-        client.send message.build_typing_reply
-        YepBot::Command.get_command_from(message).invoke
+        command_wait = rand(5) + 1
+        typing_message = message.build_typing_reply
+        timer = EM.add_periodic_timer(0.9) { client.send typing_message }
+        EM.add_timer(command_wait) { timer.cancel; YepBot::Command.get_command_from(message).invoke }
       end
     end
   end
