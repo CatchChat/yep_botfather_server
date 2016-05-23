@@ -5,10 +5,8 @@ module YepBot
 
     def start!
       @stopping = false
-      handle_exceptions do
-        handle_signals
-        run!
-      end
+      handle_signals
+      run!
     end
 
     def stop!
@@ -16,12 +14,6 @@ module YepBot
     end
 
     private
-
-    def handle_exceptions
-      yield
-    rescue => error
-      logger.error error
-    end
 
     def handle_signals
       TRAPPED_SIGNALS.each do |signal|

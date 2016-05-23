@@ -29,6 +29,7 @@ module YepBot
 You can use this token to access HTTP API:
 #{response.body['token']}
           TEXT
+          @message.sender.cancel_command
         else
           say "Sorry, #{response.error}."
         end
