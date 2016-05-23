@@ -31,8 +31,8 @@ module YepBot
 
       def commands
         [
-          YepBot::Commands::Cancel,
           YepBot::Commands::NewBot,
+          YepBot::Commands::Cancel,
           YepBot::Commands::SetAvatar,
           YepBot::Commands::SetIntroduction,
           YepBot::Commands::SetNickname,

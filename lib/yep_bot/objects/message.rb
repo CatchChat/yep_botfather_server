@@ -52,7 +52,7 @@ module YepBot
         Faye.to_json(
           message_type: 'instant_state',
           message: {
-            state: 'typing',
+            state: '0',
             recipient_type: recipient_type,
             recipient_id: recipient_id
           }
