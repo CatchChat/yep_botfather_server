@@ -5,7 +5,7 @@ namespace :yep_botfather_server do
       pidfile  = fetch(:pidfile) || 'tmp/pids/server.pid'
       rack_env = fetch(:rack_env) || fetch(:stage)
       within current_path do
-        if server_is_running?(rack_env)
+        if server_is_running?
           info 'Server is running.'
         else
           info "Starting..."
@@ -37,7 +37,7 @@ namespace :yep_botfather_server do
     end
   end
 
-  def server_is_running?(rack_env)
+  def server_is_running?
     !`ps aux | grep '[r]uby yep_botfather_server.rb'`.empty?
   end
 end
