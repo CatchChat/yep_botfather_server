@@ -2,7 +2,7 @@
 lock '3.5.0'
 
 set :application, 'yep_botfather_server'
-set :repo_url, 'git@example.com:me/my_repo.git'
+set :repo_url, 'git@github.com:CatchChat/yep_botfather_server.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
