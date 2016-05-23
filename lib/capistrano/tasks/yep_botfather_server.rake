@@ -3,6 +3,7 @@ namespace :yep_botfather_server do
   task :start do
     on roles(:app) do
       pidfile  = fetch(:pidfile) || 'tmp/pids/server.pid'
+      pidfile  = "#{current_path}/#{pidfile}"
       rack_env = fetch(:rack_env) || fetch(:stage)
       within current_path do
         if server_is_running?
@@ -19,6 +20,7 @@ namespace :yep_botfather_server do
   task :stop do
     on roles(:app) do
       pidfile  = fetch(:pidfile) || 'tmp/pids/server.pid'
+      pidfile  = "#{current_path}/#{pidfile}"
       within current_path do
         execute :kill, "-TERM `ps aux | grep '[r]uby yep_botfather_server.rb' | grep -v grep | cut -c 10-16` > /dev/null 2>&1 || true"
         5.times { print '.'; sleep 1 }

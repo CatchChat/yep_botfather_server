@@ -3,6 +3,7 @@ namespace :bluepill do
   desc 'Bluepill load'
   task :load do
     pidfile  = fetch(:pidfile) || 'tmp/pids/server.pid'
+    pidfile  = "#{current_path}/#{pidfile}"
     rack_env = fetch(:rack_env) || fetch(:stage)
     on roles(:app) do
       within current_path do
