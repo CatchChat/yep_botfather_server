@@ -39,6 +39,6 @@ namespace :yep_botfather_server do
   end
 
   def server_is_running?(rack_env)
-    !`ps aux | grep '[r]uby yep_botfather_server.rb >> log/#{rack_env}.log`.empty?
+    !`ps aux | grep '[r]uby yep_botfather_server.rb >> log/#{rack_env}.log'`.empty?
   end
 end
