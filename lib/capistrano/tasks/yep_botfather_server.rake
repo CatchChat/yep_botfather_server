@@ -9,7 +9,7 @@ namespace :yep_botfather_server do
           info 'Server is running.'
         else
           info "Starting..."
-          execute "PIDFILE=#{pidfile} RACK_ENV=#{rack_env} ruby yep_botfather_server.rb >> log/#{rack_env}.log 2>&1 &"
+          execute "PIDFILE=#{pidfile} RACK_ENV=#{rack_env} ruby yep_botfather_server.rb >> #{current_path}/log/#{rack_env}.log 2>&1 &"
         end
       end
     end
