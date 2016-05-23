@@ -19,12 +19,11 @@ namespace :yep_botfather_server do
   task :stop do
     on roles(:app) do
       pidfile  = fetch(:pidfile) || 'tmp/pids/server.pid'
-      rack_env = fetch(:rack_env) || fetch(:stage)
       within current_path do
-        execute :kill, "-TERM `ps aux | grep '[r]uby yep_botfather_server.rb >> log/#{rack_env}.log' | grep -v grep | cut -c 10-16` > /dev/null 2>&1 || true"
+        execute :kill, "-TERM `ps aux | grep '[r]uby yep_botfather_server.rb' | grep -v grep | cut -c 10-16` > /dev/null 2>&1 || true"
         5.times { print '.'; sleep 1 }
         puts "\n"
-        execute :kill, "-9 `ps aux | grep '[r]uby yep_botfather_server.rb >> log/#{rack_env}.log' | grep -v grep | cut -c 10-16` > /dev/null 2>&1 || true"
+        execute :kill, "-9 `ps aux | grep '[r]uby yep_botfather_server.rb' | grep -v grep | cut -c 10-16` > /dev/null 2>&1 || true"
         execute :rm, "#{pidfile} > /dev/null 2>&1 || true"
       end
     end
@@ -39,6 +38,6 @@ namespace :yep_botfather_server do
   end
 
   def server_is_running?(rack_env)
-    !`ps aux | grep '[r]uby yep_botfather_server.rb >> log/#{rack_env}.log'`.empty?
+    !`ps aux | grep '[r]uby yep_botfather_server.rb'`.empty?
   end
 end
