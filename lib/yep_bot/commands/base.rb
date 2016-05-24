@@ -48,10 +48,10 @@ module YepBot
       private
 
       def choose_a_bot(&block)
-        username = get_username(@message.text_content.to_s.strip)
-        if username.empty?
-          say_username_is_invalid
-        elsif bot_exist?(username)
+        return say_username_is_invalid unless username = get_username(@message.text_content.to_s.strip)
+
+        @message.sender.clear_bots
+        if bot_exist?(username)
           @message.sender.push_argument(username)
           block.call if block_given?
         else
@@ -60,6 +60,7 @@ module YepBot
       end
 
       def get_username(text)
+        return nil  if text.empty?
         return text if text !~ /\A\d+\z/
         @message.sender.bots[text.to_i - 1]
       end

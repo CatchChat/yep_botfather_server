@@ -54,10 +54,15 @@ module YepBot
 
         Redis.current.multi do
           Redis.current.del(redis_bots_key)
-          Redis.current.rpush(redis_bots_key, *new_bots)
+          new_bots.each { |bot| Redis.current.rpush(redis_bots_key, bot) }
         end
 
         @bots = new_bots
+      end
+
+      def clear_bots
+        @bots = []
+        Redis.current.del(redis_bots_key)
       end
 
       private

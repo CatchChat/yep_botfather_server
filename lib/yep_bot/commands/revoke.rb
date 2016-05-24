@@ -8,11 +8,10 @@ module YepBot
       def invoke
         sender = @message.sender
         if sender.command == 'Revoke'
-          username = @message.text_content.to_s.strip
-          if username.empty?
-            say_username_is_invalid
-          else
+          if username = get_username(@message.text_content.to_s.strip)
             revoke_token(username)
+          else
+            say_username_is_invalid
           end
         else
           sender.command = 'Revoke'
