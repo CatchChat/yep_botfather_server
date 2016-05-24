@@ -82,6 +82,7 @@ module YepBot
             say "You don't have any bots yet. Use the /newbot command to create a new bot first."
             @message.sender.cancel_command
           else
+            @message.sender.bots = usernames
             usernames_text = usernames.map.with_index do |username, index|
               "#{index + 1}. #{username}"
             end.join("\n")
