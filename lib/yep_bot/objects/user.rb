@@ -44,6 +44,22 @@ module YepBot
         Redis.current.del(redis_input_list_key)
       end
 
+      def bots
+        return @bots if defined? @bots
+        @bots = Redis.current.lrange(redis_bots_key, 0, -1)
+      end
+
+      def bots=(new_bots)
+        return if bots == new_bots
+
+        Redis.current.multi do
+          Redis.current.del(redis_bots_key)
+          Redis.current.rpush(redis_bots_key, *new_bots)
+        end
+
+        @bots = new_bots
+      end
+
       private
 
       def input_list
@@ -53,6 +69,10 @@ module YepBot
 
       def redis_input_list_key
         "#{id}:input_list"
+      end
+
+      def redis_bots_key
+        "#{id}:bots"
       end
     end
   end

@@ -48,7 +48,7 @@ module YepBot
       private
 
       def choose_a_bot(&block)
-        username = @message.text_content.to_s.strip
+        username = get_username(@message.text_content.to_s.strip)
         if username.empty?
           say_username_is_invalid
         elsif bot_exist?(username)
@@ -57,6 +57,11 @@ module YepBot
         else
           say_bot_is_not_found(username)
         end
+      end
+
+      def get_username(text)
+        return text if text !~ /\A\d+\z/
+        @message.sender.bots[text.to_i - 1]
       end
 
       def bot_exist?(username)
@@ -77,12 +82,17 @@ module YepBot
             say "You don't have any bots yet. Use the /newbot command to create a new bot first."
             @message.sender.cancel_command
           else
+            usernames_text = usernames.map.with_index do |username, index|
+              "#{index + 1}. #{username}"
+            end.join("\n")
             say <<-TEXT
 #{text}
 
 All bots:
 
-#{usernames.join("\n")}
+#{usernames_text}
+
+You can type a username or a number.
             TEXT
           end
         else
