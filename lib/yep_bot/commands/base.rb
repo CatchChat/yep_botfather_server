@@ -75,6 +75,7 @@ module YepBot
           usernames = response.body['bots'].map { |bot| bot['username'] }
           if usernames.empty?
             say "You don't have any bots yet. Use the /newbot command to create a new bot first."
+            @message.sender.cancel_command
           else
             say <<-TEXT
 #{text}
