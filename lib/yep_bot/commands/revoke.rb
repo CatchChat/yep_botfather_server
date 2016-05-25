@@ -25,7 +25,12 @@ module YepBot
         response = YepApi::Bot.revoke_token(username)
         if response.success?
           say <<-TEXT
-Your token was replaced with a new one. You can use this token to access HTTP API:
+Your token was replaced with a new one.
+
+You can use this URL to connect websocket server:
+#{response.body['websocket_url']}
+
+You can use this token to access HTTP API:
 #{response.body['token']}
           TEXT
           @message.sender.cancel_command

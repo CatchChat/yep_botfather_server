@@ -25,6 +25,9 @@ module YepBot
         response = YepApi::Bot.token(username)
         if response.success?
           say <<-TEXT
+You can use this URL to connect websocket server:
+#{response.body['websocket_url']}
+
 You can use this token to access HTTP API:
 #{response.body['token']}
           TEXT

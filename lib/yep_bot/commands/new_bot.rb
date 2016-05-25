@@ -36,7 +36,7 @@ module YepBot
       def new_bot(sender, nickname, username)
         response = YepApi::Bot.create(sender.id, nickname, username)
         if response.success?
-          say_new_bot_done(response.body['token'])
+          say_new_bot_done(response.body['websocket_url'], response.body['token'])
           sender.cancel_command
         else
           say "Sorry, #{response.error}"
@@ -51,9 +51,12 @@ module YepBot
         say "Good. Now let's choose a username for your bot. It must end in `bot`. Like this, for example: sayhi_bot."
       end
 
-      def say_new_bot_done(token)
+      def say_new_bot_done(websocket_url, token)
         say <<-TEXT
 Done! Congratulations on your new bot. You can now add a description, profile picture for your bot, see /help for a list of commands.
+
+Use this URL to connect the websocket server:
+#{websocket_url}
 
 Use this token to access the HTTP API:
 #{token}
