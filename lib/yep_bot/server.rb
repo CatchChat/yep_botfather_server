@@ -46,6 +46,7 @@ module YepBot
           end
 
           ws.on :close do |event|
+            logger.info [:close, event.code, event.reason]
             ws = nil
             EM.stop if event.code == 4030
             EM.add_timer([reconnect_times * 2, 60].min) {
