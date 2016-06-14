@@ -16,7 +16,8 @@ module YepBot
               say_confirmation_or_cancel
             end
           else
-            choose_a_bot { say_confirmation(get_username(text)) }
+            username = get_username(text)
+            choose_a_bot { say_confirmation(username) }
           end
         else
           sender.command = 'DeleteBot'
