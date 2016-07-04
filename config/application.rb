@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'boot'
 Bundler.require(:default, ENV['RACK_ENV'])
 
-Dotenv.load!
+Dotenv.load! if File.exist?('.env')
 Dir[File.expand_path('../initializers/*.rb', __FILE__)].each do |file|
   require file
 end
